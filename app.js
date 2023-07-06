@@ -63,10 +63,10 @@ app.post("/compose", function(req, res){
  
   });
 
-  post.save();
-
-  res.redirect("/");
-
+  post.save().then(() => {
+    console.log('Post added to DB.');
+    res.redirect("/");
+  });
 });
 
 app.get("/posts/:postName", function(req, res){
