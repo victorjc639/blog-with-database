@@ -24,6 +24,15 @@ app.use(express.static("public"));
 
 let posts = [];
 
+const postSchema = {
+
+  title: String,
+ 
+  content: String
+ 
+ };
+ const Post = mongoose.model("Post", postSchema);
+
 app.get("/", function(req, res){
   res.render("home", {
     startingContent: homeStartingContent,
@@ -49,7 +58,7 @@ app.post("/compose", function(req, res){
     content: req.body.postBody
   };
 
-  posts.push(post);
+  post.save();
 
   res.redirect("/");
 
