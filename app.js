@@ -69,20 +69,22 @@ app.post("/compose", function(req, res){
   });
 });
 
-app.get("/posts/:postName", function(req, res){
-  const requestedTitle = _.lowerCase(req.params.postName);
-
-  posts.forEach(function(post){
-    const storedTitle = _.lowerCase(post.title);
-
-    if (storedTitle === requestedTitle) {
-      res.render("post", {
+app.get('/posts/:postId', (req, res) => {
+  const requestedId = req.params.postId;
+  Post.findById(requestedId)
+    .then((post) => {
+      res.render('post', {
         title: post.title,
         content: post.content
       });
-    }
-  });
-
+    })
+    .catch((err) => {
+      // Handle any errors that occurred during the process
+      // You can customize the error handling logic here
+      console.error(err);
+      // Optionally, you can redirect to an error page or send an error response
+      res.status(500).send("An error occurred");
+    });
 });
 
 app.listen(3000, function() {
