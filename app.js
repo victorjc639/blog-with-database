@@ -79,10 +79,7 @@ app.get('/posts/:postId', (req, res) => {
       });
     })
     .catch((err) => {
-      // Handle any errors that occurred during the process
-      // You can customize the error handling logic here
       console.error(err);
-      // Optionally, you can redirect to an error page or send an error response
       res.status(500).send("An error occurred");
     });
 });
